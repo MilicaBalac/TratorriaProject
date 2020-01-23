@@ -1,0 +1,21 @@
+<div>
+  <form  (submit)="save()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type=text id="name" name="name" class="form-control" [(ngModel)]="dishToAdd.name" />
+    </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <select class="form-control" id="category" name="category" [(ngModel)]="dishToAdd.category">
+        <option *ngFor="let category of categories" name="category" [ngValue]="dishToAdd.category.name ? dishToAdd.category : category">{{category.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="text" name="price" class="form-control" id="price"[(ngModel)]="dishToAdd.price">
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-light" value="submit" (click)="save()">Save</button>
+      <button type="button" class="btn btn-warning" (click)="reset()">Reset</button>
+    </div> 
+  </form>

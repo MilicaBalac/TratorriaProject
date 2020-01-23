@@ -1,0 +1,48 @@
+
+<div class="row">
+ <div [ngClass]="isAdministrator ? 'col-8': 'col-12'"> 
+  <div class="d-flex justify-content-between">
+  <div>  
+  category:<input type="text" name="category" [(ngModel)]="category"/>
+  <button (click)="search()">search</button>
+  <button (click)="loadData()">reset</button>
+  <br/>
+  </div>
+  <div>
+   <button type="button" class="btn btn-light" [disabled]="page <= 0" (click)="prevPage()">
+    <i class="far fa-address-book"></i>
+     <!-- <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> -->prev
+    </button>
+  <button type="button" class="btn btn-light" (click)="nextPage()">
+    <!-- <span class="glyphicon glyphicon-forward" aria-hidden="true"></span> -->next
+  </button>
+</div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+        <th *ngIf="isAdministrator" scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr scope="row" *ngFor="let dish of dishes">
+        <td>{{dish.name}}</td>
+        <td>{{dish.category.name}}</td>
+        <td>{{dish.price}}</td>
+        <td *ngIf="isAdministrator" >
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-danger"(click)="delete(dish.id)">delete</button>
+            <button type="button" class="btn btn-light"(click)="markDishForEditing(dish)">update</button>
+          </div>  
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+<div class="col-4"*ngIf="isAdministrator" >
+  <app-edit-add-form  [dishToAdd]= "dish" [categories]="categories" (savedDish)= "save($event)"></app-edit-add-form>
+</div>
+</div>
